@@ -13,10 +13,20 @@ Tas, kas nav atvēries līdz galam.
 Lai ieimportētu datubāzē, daram šādi:
 
 ```bash
-# MySQL
+# MySQL, tabulā adm
 ogr2ogr -f MySQL MySQL:dbname,host=hostname,user=username,password=password \ 
   Territorial_units_LV_1.2m_\(2018.01.01.\)/Territorial_units_LV_1.2m_\(2018.01.01.\).shp \ 
   -nln adm \ 
   -update \ 
   -overwrite
+  
+# Postgis, tabulā adm, shēmā public
+ogr2ogr -f PostgreSQL \ 
+  "PG:dbname=dbname host=hostname user=username password=password" \ 
+  -lco SCHEMA=public \ 
+  -nln adm \ 
+  -nlt PROMOTE_TO_MULTI \ 
+  -update \ 
+  Territorial_units_LV_1.2m_\(2018.01.01.\)/Territorial_units_LV_1.2m_\(2018.01.01.\).shp 
 ```
+
